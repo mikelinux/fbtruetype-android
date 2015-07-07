@@ -76,9 +76,11 @@ void prepare_display(void)
 	// Set the screen brightness to max
 	FILE *brightness_set;
 	brightness_set=fopen("/sys/class/leds/lcd-backlight/brightness", "w+");
-	char max[3]="255";
-	fwrite(max, sizeof(max[0]), sizeof(max)/sizeof(max[0]), brightness_set);
-	fclose(brightness_set);
+	if (brightness_set) {
+		char max[3]="255";
+		fwrite(max, sizeof(max[0]), sizeof(max)/sizeof(max[0]), brightness_set);
+		fclose(brightness_set);
+	}
 
 }
 
