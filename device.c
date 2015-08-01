@@ -66,20 +66,39 @@ void clear_display(void)
 
 void prepare_display(void)
 {
-	// Set the screen power state to on
+	// Set the LCD power state to on
 	FILE *power_set;
-	power_set=fopen("/sys/power/state", "w+");
-	char on[2]="on";
-	fwrite(on, sizeof(on[0]), sizeof(on)/sizeof(on[0]), power_set);
-	fclose(power_set);
+	if( access("/sys/class/lcd/s5p_lcd/lcd_power", F_OK ) != -1 ) {
+    		power_set=fopen("/sys/class/lcd/s5p_lcd/lcd_power", "w+");
+		char on[1]="1";
+		fwrite(on, sizeof(on[0]), sizeof(on)/sizeof(on[0]), power_set);
+		fclose(power_set);
+	} else if( access("/sys/power/state", F_OK ) != -1 ) {
+    		power_set=fopen("/sys/power/state", "w+");
+		char on[2]="on";
+		fwrite(on, sizeof(on[0]), sizeof(on)/sizeof(on[0]), power_set);
+		fclose(power_set);
+	} else {
+		fprintf(stderr, "Unable to set LCD power state.\n");
+		exit (1);
+	}
 
-	// Set the screen brightness to max
+	// Set the LCD brightness to max
 	FILE *brightness_set;
-	brightness_set=fopen("/sys/class/leds/lcd-backlight/brightness", "w+");
-	char max[3]="255";
-	fwrite(max, sizeof(max[0]), sizeof(max)/sizeof(max[0]), brightness_set);
-	fclose(brightness_set);
-
+	if( access("/sys/class/backlight/s5p_bl/brightness", F_OK ) != -1 ) {
+		brightness_set=fopen("/sys/class/backlight/s5p_bl/brightness", "w+");
+		char max[3]="255";
+		fwrite(max, sizeof(max[0]), sizeof(max)/sizeof(max[0]), brightness_set);
+		fclose(brightness_set);
+	} else if( access("/sys/class/leds/lcd-backlight/brightness", F_OK ) != -1 ) {
+		brightness_set=fopen("/sys/class/leds/lcd-backlight/brightness", "w+");
+		char max[3]="255";
+		fwrite(max, sizeof(max[0]), sizeof(max)/sizeof(max[0]), brightness_set);
+		fclose(brightness_set);
+	} else {
+		fprintf(stderr, "Unable to set LCD brightness.\n");
+		exit (1);
+	}
 }
 
 
