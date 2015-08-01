@@ -14,7 +14,7 @@
 #ifndef __FBTRUETYPE_H
 #define __FBTRUETYPE_H
 
-#define FBTRUETYPE_VERSION "0.1"
+#define FBTRUETYPE_VERSION "0.2"
 
 #ifndef DEFAULT_FONTNAME 
 #define DEFAULT_FONTNAME "/system/fonts/DroidSans.ttf"
