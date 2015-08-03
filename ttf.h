@@ -13,8 +13,7 @@
     
 typedef struct _TTF_Font TTF_Font;
 
-#define DROIDSANS_SIZE 149076
+#define DROIDSANSMONO_SIZE 118640
 
-extern char DroidSans_ttf[DROIDSANS_SIZE];
-
+extern char DroidSansMono_ttf[DROIDSANSMONO_SIZE];
 
