@@ -18,6 +18,7 @@ void usage(char *name)
 		"\nOptions:\n\n"
 		"	-x:			X coordinate pixel (default 10)\n"
 		"	-y:			Y coordinate pixel (default 10)\n"
+		"	-b, --boxwidth:		Text box column size (default 30)\n"
 		"	-f, --font:		Font name (.ttf file)\n"
 		"	-t, --textcolor:	Text color (RGB hex, e.g. 0xffffff)\n"
                 "	-s, --size:		Font size (default 22)\n"
