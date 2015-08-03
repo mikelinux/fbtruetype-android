@@ -1,4 +1,3 @@
-# fbtruetype-android
   --------------------------------------------------------------------------
   			FBTrueType for Android
   --------------------------------------------------------------------------
@@ -73,6 +72,7 @@
 
 	-x:			X coordinate pixel (default 10)
 	-y:			Y coordinate pixel (default 10)
+	-b, --boxwidth:		Text box column size (default 30)
 	-f, --font:		Font name (.ttf file)
 	-t, --textcolor:	Text color (RGB hex, e.g. 0xffffff)
 	-s, --size:		Font size (default 22)
@@ -143,8 +143,15 @@
   Clear the display:
 
 	$ fbtruetype -z
-  or
+
+  or use:
+
 	$ fbtruetype --clear
+
+
+  Change the number box width to 30:
+
+	$ fbtruetype -b 30 "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog."
 
 
   Send text with Zygote enabled but screen dimmed/locked:
@@ -152,15 +159,15 @@
 	$ fbtruetype -d "TEST"
 
 
-  Use the font DroidSansMono (Android fonts are located in
+  Use the font DroidSans (Android fonts are located in
   /system/fonts/):
 
-	$ fbtruetype -f /system/fonts/DroidSansMono.ttf "TEST"
+	$ fbtruetype -f /system/fonts/DroidSans.ttf "TEST"
 
 
   Use the font DroidSansMono and set the font size to 36:
 
-	$ fbtruetype -s 36 -f /system/fonts/DroidSansMono.ttf "TEST"
+	$ fbtruetype -s 36 -f /system/fonts/DroidSans.ttf "TEST"
 
 
   Set the font color to green:
