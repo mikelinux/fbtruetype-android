@@ -278,7 +278,7 @@ TTF_Font* TTF_OpenFontIndex( const char *file, int ptsize, long index )
         error = FT_New_Face( library, file, 0, &font->face );
 
 	if( error && !strict_font )
-		error=FT_New_Memory_Face(library, (const FT_Byte*)DroidSans_ttf, DROIDSANS_SIZE, 0, &font->face );
+		error=FT_New_Memory_Face(library, (const FT_Byte*)DroidSansMono_ttf, DROIDSANSMONO_SIZE, 0, &font->face );
 
         if( error ) {
                 printf( "Couldn't load font file\n");
@@ -658,7 +658,7 @@ unsigned char* TTF_RenderUNICODE_Shaded( TTF_Font* font,
 
         /* Get the dimensions of the text surface */
         if( ( TTF_SizeUNICODE(font, text, &width, NULL) < 0 ) || !width ) {
-                fprintf(stderr,"Text has zero width\n");
+                //fprintf(stderr,"Text has zero width\n");
                 return NULL;
         }
         height = font->height;
@@ -794,11 +794,10 @@ int rendertext(char *text, char *fontname, unsigned int ptsize, unsigned int for
         }
 
         renderstyle = TTF_STYLE_NORMAL;
-	rendertype = RENDER_LATIN1;
+	rendertype = RENDER_UTF8;
 	
         TTF_SetFontStyle(font, renderstyle);
 	text = TTF_RenderText_Shaded(font, text, forecol, 0);
 
 	return 0;
 }
-
