@@ -145,8 +145,7 @@ int strwrap(char * s, int w, char *** line_ret, int ** len_ret)
 
 int main(int argc, char *argv[])
 {
-  	char *textstr;
-	char *stringraw;
+  	char textstr[4096];
   	char ** line;
   	int * len;
   	int lines;
@@ -281,8 +280,7 @@ int main(int argc, char *argv[])
 	fblinelen = fix.line_length;
 	fbyposoff = fbypos;
 
-	stringraw = argv[optind];
-	lines = strwrap(stringraw, boxwidth, &line, &len);
+	lines = strwrap(argv[optind], boxwidth, &line, &len);
 	  for (i = 0; i < lines; i++)
 	  {
 	    if (i > 0)
