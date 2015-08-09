@@ -2,6 +2,7 @@
   			FBTrueType for Android
   --------------------------------------------------------------------------
 
+  -----------
   What is it?
   -----------
 
@@ -10,6 +11,7 @@
   framebuffer and the freetype2 library.
 
 
+  --------
   Building
   --------
 
@@ -31,6 +33,7 @@
 	$ make
 
 
+  ------------
   Installation
   ------------
 
@@ -62,6 +65,7 @@
 	$ fbtruetype
 
 
+  -----
   Usage
   -----
 
@@ -70,22 +74,25 @@
 
   Options:
 
-	-x:			X coordinate pixel (default 10)
-	-y:			Y coordinate pixel (default 10)
-	-b, --boxwidth:		Text box column size (default 30)
-	-f, --font:		Font name (.ttf file)
-	-t, --textcolor:	Text color (RGB hex, e.g. 0xffffff)
-	-s, --size:		Font size (default 22)
-	-a, --alpha:		Alpha channel (1-100)
-	-v, --verbose:		Verbose mode
-	-V, --version:		Show version
 	-?, -h, --help:		Print this help.
-	-S, --start-console:	Output on start console only.
-	-c:			Start on specified console.
-	-d, --zygote:		Zygote is running mode.
-	-z, --clear		Clear the device display.
+	-V, --version:		Show version.
+	-i, --info:		Print device display information.
+
+	-z, --zygote:		Zygote mode.
+	-p, --power:		Send power key event.
+	-c, --clear		Clear the device display.
+
+	-x:			X coordinate pixel [default 10]
+	-y:			Y coordinate pixel [default 10]
+	-b, --brightness:	Set display brightness [0-255] [default 170]
+	-w, --boxwidth:		Text box column size [default 65]
+	-f, --font:		Font name [.ttf file]
+        -s, --size:		Font size [default 12]
+	-t, --textcolor:	Font color [RGB Hex: FFFFFF]
+	-a, --alpha:		Alpha channel [1-100]
 
 
+  -----------
   Usage Notes
   -----------
 
@@ -96,22 +103,24 @@
   the framebuffer will still be locked by Zygote and text will 
   only be displayed for a brief second. To circumvent this
   there is an option --zygote which captures the display from
-  Zygote when the display is off. Only when the display is off
-  (i.e, device is in lock state and the screen is dimmed)
-  will this mode work. To reset the display just lock, unlock
-  the device or press the power button. Once the screen has
-  been captured from Zygote, the program will work in normal
-  mode.
+  Zygote when the display is in sleep mode. Only when the 
+  display is off (i.e, device is in lock state and the screen 
+  is dimmed) will this mode work. To reset the display just 
+  issue the --power option or press the power button on the
+  device. Once the framebuffer has been captured from Zygote,
+  the program will work in normal mode.
 
-  **Note: With Zygote running the display may be captured by
+  **Note: With Zygote running the display may be written to by
   Zygote when a screen change event happens such as when you
-  receive a call, SMS etc...
+  receive a call, SMS, clock widgets etc...
 
+  -------------------------
   Without Zygote (Headless)
   -------------------------
 
-  If you prefer to kill Zygote completely to use the program,
-  it can be stopped by issueing the following commands:
+  If you prefer to kill Zygote or you experience corrpution on
+  the display using Zygote more then you should stop the Zygote
+  process completely by issuing the following commands:
 
 	$ adb shell
 	$ su
@@ -119,7 +128,7 @@
 
   The "stop" command will completely shutdown Zygote and all child
   processes. After doing this it is necessary to clear the device
-  display using the -z or --clear command options:
+  display using the -c or --clear command options:
 
 	$ fbtruetype --clear
 
@@ -128,10 +137,11 @@
 
 	$ start
 
-  **Note: Without Zygote running you will be unable to receive calls
-  or SMS etc...
+  **Note: Without Zygote running you will be unable to use android
+  functions like receiving calls or SMS etc...
 
 
+  --------
   Examples
   --------
 
@@ -142,21 +152,21 @@
 
   Clear the display:
 
-	$ fbtruetype -z
+	$ fbtruetype -c
 
   or use:
 
 	$ fbtruetype --clear
 
 
-  Change the number box width to 30:
+  Change the text box column width to 30:
 
-	$ fbtruetype -b 30 "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog."
+	$ fbtruetype -w 30 "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog."
 
 
-  Send text with Zygote enabled but screen dimmed/locked:
+  Send text with Zygote still running:
 
-	$ fbtruetype -d "TEST"
+	$ fbtruetype -z "TEST"
 
 
   Use the font DroidSans (Android fonts are located in
@@ -165,7 +175,7 @@
 	$ fbtruetype -f /system/fonts/DroidSans.ttf "TEST"
 
 
-  Use the font DroidSansMono and set the font size to 36:
+  Use the font DroidSans and set the font size to 36:
 
 	$ fbtruetype -s 36 -f /system/fonts/DroidSans.ttf "TEST"
 
@@ -175,13 +185,29 @@
 	$ fbtruetype -t 00FF00 "TEST"
 
 
+  Set the display brightness to 150:
+
+	$ fbtruetype -b 150 "TEST"
+
+
+  Set the text position to X=50 and Y=100:
+
+	$ fbtruetype -x 50 -y 100 "TEST"
+
+
+  Simulate the power button (turn display ON/OFF):
+
+	$ fbtruetype -p
+
+
+  ------------
   Test Script
   ------------
 
-  In the test directory you will find a script called matrix.sh
+  In the test directory you will find a script called devinfo.sh
   Copy this to the device and run it like this:
 	
-	$ adb push test/matrix.sh /sdcard/
+	$ adb push test/devinfo.sh /sdcard/
 
   Then open a ADB shell, SU to root and then copy the script
   to the /data/ directory where it can be executed from.
@@ -189,33 +215,41 @@
 
 	$ adb shell
 	$ adb su
-	$ cp /sdcard/matrix.sh /data/
-	$ chmod 755 /data/matrix.sh
+	$ cp /sdcard/devinfo.sh /data/
+	$ chmod 755 /data/devinfo.sh
 
-  Now run the script to enter the Matrix :)
+  Now run the script to view basic device information on the
+  display of the device.
 
-	$ /data/matrix.sh
+	$ /data/devinfo.sh
 
-  **Note: You will need busybox installed at /system/xbin/busybox
-  to run the script.
-
+  -----
   Notes
   -----
 
-  This program has only been tested on ARMv7l, I hold no liability
-  for any damage or otherwise which you may cause to your device.
+  This program has only been tested on an old HTC ARMv7l, therefore
+  it might be incompatible or even damage your device. I hold no
+  liability for any damage or otherwise which you may cause to
+  your device by using this program.
 
 
+  ---------
   Licensing
   ---------
 
   Please see the file called LICENSE.
 
 
+  -------
   Credits
   -------
 
-  Written by Michael Higham <mhigham1986@gmail.com>
+  (c) 2015 by Michael Higham, <mhigham1986@gmail.com>
+ 
+  This program is based on fbtruetype, written and (C) by
+  (c) 2001-2002 by Stefan Reinauer, <stepan@suse.de>
 
-  This program is ported from fbtruetype by Stefan Reinauer, <stepan@suse.de>
+  This program my be redistributed under the terms of the
+  GNU General Public Licence, version 2, or at your preference,
+  any later version.
 
