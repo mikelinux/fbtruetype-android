@@ -14,7 +14,7 @@ CC       = arm-linux-gnueabi-gcc
 LIBDIR   = ./libs
 
 PROGRAM = fbtruetype
-OBJECTS  = fbtruetype.o messages.o device.o console.o ttf.o droidsansmono.o
+OBJECTS  = fbtruetype.o functions.o messages.o device.o console.o ttf.o droidsansmono.o
 
 LDFLAGS  += -L$(LIBDIR)
 LIBS    = $(LIBDIR)/libfreetype.a $(LIBDIR)/libz.a -lm
