@@ -1,4 +1,13 @@
-## [0.3] - 2015-08-03
+## [0.40] - 2015-08-09
+### Changed
+- New brightness option.
+- New simulate power key option.
+- Improved Zygote mode.
+- Cleaned up help screen and options.
+- Cleaned up the code.
+- More generic Samsung support added.
+
+## [0.30] - 2015-08-03
 ### Changed
 - Basic line wrapping implemented (has bugs).
 - Basic word wrapping implemented (has bugs).
@@ -7,11 +16,11 @@
 - Changed default font size.
 - Few error handling bug fixes. 
 
-## [0.2] - 2015-08-01
+## [0.20] - 2015-08-01
 ### Changed
 - Added Samsung support.
 
-## [0.1] - 2015-04-10
+## [0.10] - 2015-04-10
 ### Changed
 - Initial program release.
 - Tested only on ARMv7l.
