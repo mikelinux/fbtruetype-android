@@ -103,10 +103,10 @@ void power_key(void)
 					devfile = NULL;
 					//printf("%s\n",devstr);
  
-	  				if((matchblock = regexp(devstr,"event[0-9]*[A-z0-9 ]*(\n)B:[ ]*PROP=[A-z0-9]*(\n)B:[ ]*EV=[A-z0-9]*(\n)B:[ ]*KEY=[0-9 ]*1c0800",&b,&e)) != NULL) {
-						matchblock = regexp(devstr,"event[0-9]*[A-z0-9 ]*(\n)B:[ ]*PROP=[A-z0-9]*(\n)B:[ ]*EV=[A-z0-9]*(\n)B:[ ]*KEY=[0-9 ]*1c0800",&b,&e);
-					} else if((matchblock = regexp(devstr,"event[0-9]*[A-z0-9 ]*(\n)B:[ ]*EV=[A-z0-9]*(\n)B:[ ]*KEY=[0-9 ]*1c0800",&b,&e)) != NULL) {
-						matchblock = regexp(devstr,"event[0-9]*[A-z0-9 ]*(\n)B:[ ]*EV=[A-z0-9]*(\n)B:[ ]*KEY=[0-9 ]*1c0800",&b,&e);
+	  				if((matchblock = regexp(devstr,"event[0-9]*[A-z0-9 ]*(\n)B:[ ]*PROP=[A-z0-9]*(\n)B:[ ]*EV=[A-z0-9]*(\n)B:[ ]*KEY=[0-9 ]*1c0[0-9]00 ",&b,&e)) != NULL) {
+						matchblock = regexp(devstr,"event[0-9]*[A-z0-9 ]*(\n)B:[ ]*PROP=[A-z0-9]*(\n)B:[ ]*EV=[A-z0-9]*(\n)B:[ ]*KEY=[0-9 ]*1c0[0-9]00 ",&b,&e);
+					} else if((matchblock = regexp(devstr,"event[0-9]*[A-z0-9 ]*(\n)B:[ ]*EV=[A-z0-9]*(\n)B:[ ]*KEY=[0-9 ]*1c0[0-9]00 ",&b,&e)) != NULL) {
+						matchblock = regexp(devstr,"event[0-9]*[A-z0-9 ]*(\n)B:[ ]*EV=[A-z0-9]*(\n)B:[ ]*KEY=[0-9 ]*1c0[0-9]00 ",&b,&e);
 					} else {
 						printf("Error finding input device!\n");
 						exit(0);
