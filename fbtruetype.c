@@ -28,6 +28,8 @@
 #include "messages.h"
 #include "console.h"
 
+#define reverse(x) ((x & 0x0000ff ) << 16 ) | (( x & 0x00ff00 )) | ((x & 0xff0000 ) >> 16 )
+
 volatile int run = 1;
 int buffered = 0;
 int waitsignal = 0;
@@ -146,6 +148,10 @@ int main(int argc, char *argv[])
 			fontsize=strtol(optarg, NULL, 10);
 			break;
 		case 't':
+			if (strlen(optarg) != 6) {
+    				printf("Invalid color!\n");
+				exit(0);
+    			}
 			fontcolor=strtol(optarg, NULL, 16);
 			break;
 		case 'a':
@@ -200,7 +206,7 @@ int main(int argc, char *argv[])
 	     	//printf("%4d |%-*s|\n", len[i], boxwidth, argv[optind]);
 	    framebuffer = mmap(NULL,  fblinelen* fby ,
 		 PROT_WRITE | PROT_READ, MAP_SHARED, fbdev, var.yoffset * fblinelen);
-	    rendertext (("%s", len[i], boxwidth, textstr), font, fontsize, fontcolor);
+	    rendertext (("%s", len[i], boxwidth, textstr), font, fontsize, reverse(fontcolor));
 	  }
 
 	free(line);
